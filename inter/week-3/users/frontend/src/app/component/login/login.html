@@ -1,0 +1,28 @@
+<div id="login-form">
+    <div class="title">Login</div>
+    <form class="full-width" [formGroup]="signInForm" (ngSubmit)="signIn()" novalidate>
+        <div class="field-margin">
+            <mat-form-field class="full-width">
+                <input matInput type="email" formControlName="email" name="email" id="email" placeholder="Email">
+                <mat-icon matSuffix>email</mat-icon>
+                <mat-error *ngIf="formControls.email.invalid">Invalid email</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field class="full-width">
+                <input matInput type="password" formControlName="password" name="password" id="password" autocomplete="new-password" placeholder="Password">
+                <mat-icon matSuffix>vpn_key</mat-icon>
+                <mat-error *ngIf="formControls.password.invalid">Invalid password</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <button [disabled]="!signInForm.valid" mat-raised-button color="primary" type="submit" class="submit-button">Login</button>
+        </div>
+
+        <div *ngIf="errorMessage" role="alert">
+            <strong>{{errorMessage.message}}</strong>
+        </div>
+    </form>
+</div>

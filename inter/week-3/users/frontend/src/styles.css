@@ -1,0 +1,29 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@font-face {
+    font-family: "Roboto-Regular";
+    src: url("./assets/font/Roboto/Roboto-Regular.ttf");
+}
+
+/* You can add global styles to this file, and also import other style files */
+body, html {
+    margin: 0;
+    height: 100%;
+    font-family: Roboto-Regular, serif;
+}
+
+.back-ground-image {
+    background-image: url("./assets/images/background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    height: 100%;
+}
+
+.red-snackbar {
+    background-color: #F44336;;
+    color: #ffffff;
+}
