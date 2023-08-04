@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Container Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Docker Container Dashboard</h1>
+    </header>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Ports</th>
+                    <th>Running</th>
+                    <th>Start</th>
+                    <th>Stop</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody id="containerTableBody">
+                <!-- Container data will be added here dynamically -->
+            </tbody>
+        </table>
+    </main>
+
+    <!-- The container details modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Container Details</h2>
+            <div id="containerDetails"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

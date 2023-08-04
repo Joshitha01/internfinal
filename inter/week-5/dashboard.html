@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Docker Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container-card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .container-card h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .container-card p {
+            margin: 5px 0;
+        }
+
+        .status {
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .status-running {
+            background-color: #4CAF50;
+        }
+
+        .status-stopped {
+            background-color: #f44336;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-start {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+
+        .btn-stop {
+            background-color: #f44336;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Docker Dashboard</h1>
+
+    <div id="container-list"></div>
+
+    <script>
+        // Fetch container information from the Java REST API
+        async function fetchContainers() {
+            try {
+                const response = await fetch('http://localhost:3002/containers');
+                const data = await response.json();
+                
+                return data;
+            } catch (error) {
+                console.error('Error fetching container information:', error);
+                return [];
+            }
+        }
+
+        // Render container information on the webpage
+        async function renderContainers() {
+            const containerListElement = document.getElementById('container-list');
+            containerListElement.innerHTML = '';
+
+            const containers = await fetchContainers();
+            containers.forEach((container) => {
+                const containerCard = document.createElement('div');
+                containerCard.classList.add('container-card');
+
+                const statusClass = container.running ? 'status-running' : 'status-stopped';
+                const statusText = container.running ? 'Running' : 'Stopped';
+
+                containerCard.innerHTML = `
+                    <h2>Container Information</h2>
+                    <p><strong>Name:</strong> ${container.name}</p>
+                    <p><strong>ID:</strong> ${container.id}</p>
+                    <p><strong>Status:</strong> <span class="status ${statusClass}">${statusText}</span></p>
+                    <p><strong>Image:</strong> ${container.image}</p>
+                    <p><strong>Ports:</strong> ${container.ports.join(', ')}</p>
+                    <button class="btn ${container.running ? 'btn-stop' : 'btn-start'}" data-container-id="${container.id}">
+                        ${container.running ? 'Stop' : 'Start'}
+                    </button>
+                `;
+
+                containerListElement.appendChild(containerCard);
+            });
+        }
+
+        // Add event listeners to start/stop buttons
+        document.addEventListener('click', async (event) => {
+            if (event.target.classList.contains('btn-start') ) {
+               const containerId = event.target.getAttribute('data-container-id');
+                await fetch(`http://localhost:3002/containers/start/${containerId}`, { method: 'POST' });
+                await renderContainers();
+            }
+            else  if (event.target.classList.contains('btn-stop')) {
+               const containerId = event.target.getAttribute('data-container-id');
+                await fetch(`http://localhost:3002/containers/stop/${containerId}`, { method: 'POST' });
+                await renderContainers();
+            }
+        });
+
+        // Initial rendering
+        renderContainers();
+    </script>
+</body>
+</html>

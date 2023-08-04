@@ -1,0 +1,103 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+header {
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+main {
+    margin-top: 20px; /* Add margin to create space between header and table */
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Add a fixed height to the table body to enable scrolling */
+tbody {
+    max-height: 400px; /* Adjust this value based on your requirement */
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 8px;
+    text-align: center;
+}
+
+thead {
+    background-color: #f2f2f2;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+button {
+    padding: 5px 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+/* Style the Start button */
+button.start {
+    background-color: #4CAF50; /* Green color */
+    color: white;
+}
+
+/* Style the Stop button */
+button.stop {
+    background-color: #f44336; /* Red color */
+    color: white;
+}
+
+/* Style the Details button */
+button.details {
+    background-color: #FFC107; /* Yellow color */
+    color: white;
+}
+
+/* Add hover effect to buttons */
+button:hover {
+    opacity: 0.8;
+}
+
+/* Add active effect to buttons */
+button:active {
+    transform: translateY(1px);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    width: 50%;
+    border-radius: 5px;
+}
+
+.close {
+    float: right;
+    cursor: pointer;
+}
